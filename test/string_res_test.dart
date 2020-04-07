@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 const example = '''
 {
-    "first_name": "First Name’",
+    "first_name": "First Name",
     "log_in": "Log in"
 }
 ''';
@@ -30,7 +30,7 @@ void main() {
     generator.makeResource(json.decode(example) as Map<String, Object>, buffer);
 
     expect(buffer.toString(),
-        "  // First Name’\n  static const FIRST_NAME = 'first_name';\n  // Log in\n  static const LOG_IN = 'log_in';\n");
+        "  // First Name\n  static const FIRST_NAME = 'first_name';\n\n  // Log in\n  static const LOG_IN = 'log_in';\n\n");
   });
 
   test('can generate when formatted values', () {
@@ -40,6 +40,6 @@ void main() {
         json.decode(formattedExample) as Map<String, Object>, buffer);
 
     expect(buffer.toString(),
-        "  // some tricky\\nformatting\n  static const FIRST_NAME = 'first_name';\n");
+        "  // some tricky\\nformatting\n  static const FIRST_NAME = 'first_name';\n\n");
   });
 }

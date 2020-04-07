@@ -77,7 +77,7 @@ class StringConstGenerator {
     body.keys.forEach((key) {
       final value = body[key].toString().replaceAll('\n', '\\n');
       buffer.write('  // $value\n');
-      buffer.write("  static const ${key.toUpperCase()} = '$key';\n");
+      buffer.write("  static const ${key.toUpperCase()} = '$key';\n\n");
     });
   }
 }
