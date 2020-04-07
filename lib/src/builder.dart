@@ -71,18 +71,14 @@ class StringResourceBuilder implements Builder {
 
 @visibleForTesting
 class StringConstGenerator {
-  static const MAX_VALUE_COMMENT_LENGTH = 50;
 
   const StringConstGenerator();
 
   void makeResource(Map<String, Object> body, StringBuffer buffer) {
     body.keys.forEach((key) {
-      final value =
-          body[key].toString().replaceAll(RegExp(r'\n', multiLine: true), ' ');
-      final commentLength = min(MAX_VALUE_COMMENT_LENGTH, value.length);
-      final truncated = commentLength == MAX_VALUE_COMMENT_LENGTH ? '...' : '';
-      buffer.write('// ${value.substring(0, commentLength)}$truncated\n');
-      buffer.write('static const ${key.toUpperCase()} = "$key";\n');
+      final value = body[key].toString();
+      buffer.write('  // $value\n');
+      buffer.write("  static const ${key.toUpperCase()} = '$key';\n");
     });
   }
 }
