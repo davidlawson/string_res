@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 const example = '''
 {
-    "first_name": "First Name",
+    "first_name": "First Name’",
     "log_in": "Log in"
 }
 ''';
@@ -30,17 +30,7 @@ void main() {
     generator.makeResource(json.decode(example) as Map<String, Object>, buffer);
 
     expect(buffer.toString(),
-        '// First Name\nstatic const FIRST_NAME = "first_name";\n// Log in\nstatic const LOG_IN = "log_in";\n');
-  });
-
-  test('can generate truncated comments for string consts', () {
-    final generator = StringConstGenerator();
-    final buffer = StringBuffer();
-    generator.makeResource(
-        json.decode(longExample) as Map<String, Object>, buffer);
-
-    expect(buffer.toString(),
-        '// First Name\nstatic const FIRST_NAME = "first_name";\n// This is a very long value, in fact it is long enou...\nstatic const VERY_LONG = "very_long";\n');
+        "  // First Name’\n  static const FIRST_NAME = 'first_name';\n  // Log in\n  static const LOG_IN = 'log_in';\n");
   });
 
   test('can generate when formatted values', () {
@@ -50,6 +40,6 @@ void main() {
         json.decode(formattedExample) as Map<String, Object>, buffer);
 
     expect(buffer.toString(),
-        '// some tricky formatting\nstatic const FIRST_NAME = "first_name";\n');
+        "  // some tricky\\nformatting\n  static const FIRST_NAME = 'first_name';\n");
   });
 }

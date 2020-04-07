@@ -71,12 +71,11 @@ class StringResourceBuilder implements Builder {
 
 @visibleForTesting
 class StringConstGenerator {
-
   const StringConstGenerator();
 
   void makeResource(Map<String, Object> body, StringBuffer buffer) {
     body.keys.forEach((key) {
-      final value = body[key].toString();
+      final value = body[key].toString().replaceAll('\n', '\\n');
       buffer.write('  // $value\n');
       buffer.write("  static const ${key.toUpperCase()} = '$key';\n");
     });
